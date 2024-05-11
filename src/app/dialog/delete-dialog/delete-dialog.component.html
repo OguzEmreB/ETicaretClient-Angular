@@ -1,0 +1,9 @@
+<h2 mat-dialog-title style="color:red; text-align: center;"> Dikkat!</h2>
+<p style="color:rgb(8, 28, 141); text-align: center;"> {{data.name}}</p>
+<mat-dialog-content>
+  <p>Silmek istediğinize emin misiniz?</p> 
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">İptel</button>
+  <button mat-button [mat-dialog-close]="data.state" cdkFocusInitial style="color:rgb(141, 8, 8);">Evet</button>
+</mat-dialog-actions>

@@ -34,7 +34,7 @@
 
        <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef width="30"> Sil </th>
-        <td [id]="element.id" mat-cell *matCellDef="let element" appDelete (callBack)="getProducts()"> <!-- <img width="25"  src="../../../../../assets/delete.png" (click)="delete(element.id,$event)">-->  </td> 
+        <td [id]="element.id" [name]="element.name" controller="products" mat-cell *matCellDef="let element" appDelete (callBack)="getProducts()"> <!-- <img width="25"  src="../../../../../assets/delete.png" (click)="delete(element.id,$event)">-->  </td> 
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
