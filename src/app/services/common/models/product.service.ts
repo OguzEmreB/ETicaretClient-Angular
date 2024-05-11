@@ -4,6 +4,8 @@ import { Create_Product } from '../../../contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { List_Product } from '../../../contracts/list_product';
 import { EventEmitter } from 'stream';
+import { producerAccessed } from '@angular/core/primitives/signals';
+import { Observable, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,19 @@ errorCallBack(message);
     });
   }
   //#endregion
+
+//#region Delete
+
+async delete(id:string){
+  const deleteObservable : Observable<any> =this.httpClientService.delete<any>({
+    controller:"products"
+  },id);
+  await firstValueFrom(deleteObservable);
+}
+
+//#endregion
+
+
 
 //#region List Product
 

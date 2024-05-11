@@ -7,6 +7,8 @@ import { AlertifyService, MessageType, Position } from '../../../../services/adm
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatPaginator } from '@angular/material/paginator';
 
+declare var $:any;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -19,7 +21,7 @@ export class ListComponent extends BaseComponent implements AfterViewInit {
     
   }
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate','updatedDate'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate','updatedDate','edit','delete'];
   dataSource : MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
@@ -40,6 +42,10 @@ async pageChanged(){
   await this.getProducts();
 }
 
+// delete( id,event){
+// const img:HTMLImageElement = event.srcElement;
+// $(img.parentElement.parentElement).fadeOut(2000);
+// }
 async ngAfterViewInit() // Will be called After Angular has completed initialization of a component's view. It is invoked only once when the view is instantiated.
 {
    await this.getProducts(); 
