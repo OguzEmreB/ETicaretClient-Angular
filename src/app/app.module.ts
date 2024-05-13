@@ -10,6 +10,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner'; 
 import { HttpClientModule } from '@angular/common/http';
+import { FileuploadDialogComponent } from './dialog/fileupload-dialog/fileupload-dialog.component';
 
 
 @NgModule({
