@@ -6,6 +6,8 @@ import { BaseComponent, SpinnerType } from '../../../../base/base.component';
 import { AlertifyService, MessageType, Position } from '../../../../services/admin/alertify.service'; 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatPaginator } from '@angular/material/paginator';
+import { DialogService } from '../../../../services/common/dialog.service';
+import { SelectProductImageDialogComponent } from '../../../../dialog/select-product-image-dialog/select-product-image-dialog.component';
 
 declare var $:any;
 
@@ -16,12 +18,18 @@ declare var $:any;
 })
 export class ListComponent extends BaseComponent implements AfterViewInit {
   
-  constructor(spinner:NgxSpinnerService ,private productService:ProductService,private alertifyService:AlertifyService) {
+
+  
+  constructor(spinner:NgxSpinnerService ,
+    private productService:ProductService,
+    private alertifyService:AlertifyService,
+    private dialogService:DialogService
+  ) {
     super(spinner)
     
   }
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate','updatedDate','edit','delete'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate','updatedDate','photo','edit','delete'];
   dataSource : MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
@@ -54,5 +62,16 @@ async ngAfterViewInit() // Will be called After Angular has completed initializa
 //{
 //   this.getProducts();   
 // }
+
+
+addProductImages(id: string) {
+ this.dialogService.openDialog({
+  componentType: SelectProductImageDialogComponent,
+  data:id,
+  options:{
+    width:"1400px"
+  }
+ });
+}
 
 }
