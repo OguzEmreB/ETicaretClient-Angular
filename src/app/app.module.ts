@@ -5,12 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { UiModule } from './ui/ui.module'; 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations'; 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner'; 
 import { HttpClientModule } from '@angular/common/http';
-import { FileuploadDialogComponent } from './dialog/fileupload-dialog/fileupload-dialog.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { GoogleLoginProvider,   GoogleSigninButtonModule,   SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login'; 
 
 
 @NgModule({
@@ -25,12 +25,33 @@ import { FileuploadDialogComponent } from './dialog/fileupload-dialog/fileupload
     UiModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config:{
+        tokenGetter:()=> localStorage.getItem("accessToken"),
+        allowedDomains:["localhost:7151"]
+      }
+    }),
+    SocialLoginModule,  GoogleSigninButtonModule
   ],
   providers: [
   {provide:"baseUrl",useValue:"https://localhost:7151/api",multi:true},
-    provideAnimationsAsync()
-  ],
+    provideAnimations(),
+    {
+      provide: "SocialAuthServiceConfig",
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("951868154971-l572msahn2qv63vqvuibge60lq3hr94c.apps.googleusercontent.com")
+        }
+      ],
+      onError: err => console.log(err)
+    } as SocialAuthServiceConfig
+  
+ }
+],
   bootstrap: [AppComponent]
 })
 
